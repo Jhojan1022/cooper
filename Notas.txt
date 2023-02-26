@@ -1,0 +1,13 @@
+ fetch('http://localhost:4000/addUser', {
+            method: 'POST',
+            body: JSON.stringify({
+    "name":"Diego Andrés Casallas",
+    "password":"1234"
+}),
+            headers: {"Content-Type":"application/json"}
+        })
+
+
+
+        ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+flush privileges;

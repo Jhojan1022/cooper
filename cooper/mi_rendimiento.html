@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gráfico de barras con Google Charts</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Horas trabajadas', 'Min'],
+          ['Lunes', 60],
+          ['Martes', 70],
+          ['Miercoles', 60],
+          ['Jueves', 80],
+          ['Viernes', 60],
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Productividad en actividades por semana',
+          },
+          bars: 'vertical'
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('chart_div'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="height: 40vh;"></div>
+  </body>
+</html>

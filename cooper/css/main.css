@@ -1,0 +1,158 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-thumb{
+  background: #333;
+  border-radius: 50px;
+}
+  #sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+  }
+  #sidebar h2 {
+    font-size: 20px;
+    margin-top: 0;
+  }
+  #sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  #sidebar li {
+    margin-bottom: 10px;
+  }
+  #sidebar li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  #sidebar li a:hover {
+    background-color: #666;
+  }
+  nav{
+    padding: 15px 15px 15px 20%;
+    background-color: #333;
+  }
+
+  .user{
+    position: absolute;
+    right: 0;
+    padding: 10px;
+    margin: -6px 5px 5px 5px;
+    border-radius: 3px;
+    background-color: #333;
+  }
+
+  .user div{
+    color: #fff;
+    cursor: pointer;
+  }
+  #content {
+    margin-left: 19.5%;
+    margin-top: 0.5%;
+    padding: 20px;
+  }
+  #content h1 {
+    font-size: 32px;
+    margin-top: 0;
+  }
+  #content p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  input, select{
+    display: block;
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0px 30px 0px
+}
+
+button{
+    background-color: #113349;
+    color: white;
+    padding: 10px;
+    border: solid black 1px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #666;
+}
+
+
+#content{
+  height: 100vh;
+}
+
+.flex {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.flex div {
+  width: 93%;
+}
+
+.card{
+  display: flex;
+  justify-content: space-around;
+  width: 85%;
+  border: solid 1.5px #333;
+  border-radius: 3px;
+  padding: 10px;
+}
+
+
+#user{
+  
+}
+
+
+.menu_adm {
+  display: flex;
+  justify-content: space-around;
+}
+
+.menu_adm div {
+  background-color: rgba(0,0,0,0.75);
+  color: white;
+  padding: 5%;
+  margin: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.menu_adm div:hover{
+  padding: 5.2%;
+}
+
+
+table{
+  border: solid black 1px;
+  border-radius: 3px;
+  border-collapse: collapse;
+}
+
+td, th{
+  padding: 10px;
+  border: solid black 1px;
+
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cooper</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+
+    <h1>Mi actividad</h1>
+
+    <button onclick="registrarIngreso()">Registrar ingreso</button>
+    <button onclick="registrarSalida()">Registrar salida</button>
+    <div>
+        <br>
+
+        <div id="ingreso"></div>
+        <div id="salida"></div>
+    </div>
+
+    <br>
+    <hr>
+    <br>
+
+    <div style="display: flex; justify-content: space-between">
+        <div style="width: 50%; margin:0px">
+            <h2>Actividades</h2>
+
+            <form id="formActividad">
+                <label for="area">Área</label>
+                <select name="coordinaciones" id="coordinaciones">
+                    <option value="1">Base de datos</option>
+                </select>
+
+                <label for="cargo">Cargo</label>
+                <select name="cargos" id="cargos"></select>
+
+                <label for="Actividad">Actividades</label>
+                <br>
+                <select name="atividad" id="actividades">
+
+                </select>
+
+                <label for="observacion">Observacion</label>
+                <input type="text">
+                <button type="submit">Iniciar actividad</button>
+                <button type="submit">Finalizar actividad</button>
+            </form>
+        </div>
+        <div style="width: 50%; border-left: solid rgb(177, 177, 177) 1px; padding-left: 30px;">
+            <h2>Actividades en curso</h2>
+            <div id="actividadesUsuario">
+                <table id="actividadesUsuarioTable">
+                    <tr>
+                        <th>Nombre actividad</th>
+                        <th>Fecha inicio</th>
+                        <th>Duración</th>
+                        <th>Acción</th>
+                    </tr>
+                </table>
+            </div>
+            <br>
+        </div>
+    </div>
+    <script src="js/crudAPI.js"></script>
+    <script src="js/mi_actividad.js"></script>
+</body>
