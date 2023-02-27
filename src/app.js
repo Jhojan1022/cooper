@@ -16,7 +16,7 @@ const app = express();
 
 // settings
 
-app.set("port", process.env.PORT || 3000)
+app.set("port", process.env.PORT || 7000)
 
 // middlewares
 app.use(morgan("dev"));
