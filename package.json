@@ -1,13 +1,12 @@
 {
   "name": "cooper",
   "version": "1.0.0",
-  "type":"module",
   "description": "Cooper",
   "main": "index.js",
   "scripts": {
-    "babel-node":"@babel-node --presets=@babel/preset-env",
+    "babel-node":"babel-node --presets=@babel/preset-env",
     "dev":"npm run babel-node src/index.js",
-    "start":"node --exec npx babel-node src/index.js"
+    "start":"npm run babel-node src/index.js"
   },
   "author": "Jhojann Estiven Triana",
   "license": "ISC",
