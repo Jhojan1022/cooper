@@ -6,7 +6,7 @@
   "scripts": {
     "babel-node":"@babel-node --presets=@babel/preset-env",
     "dev":"npm run babel-node src/index.js",
-    "start":"npm run babel-node src/index.js"
+    "start":"npm run src/index.js"
   },
   "author": "Jhojann Estiven Triana",
   "license": "ISC",
