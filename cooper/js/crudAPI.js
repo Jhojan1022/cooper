@@ -1,8 +1,7 @@
-const url = "http://localhost:4000/";
+const url = "https://cooper-production.up.railway.app/";
 
 async function dta(t) {
-    const url = "http://localhost:4000/" + t;
-    const response = await fetch(url);
+    const response = await fetch(url + t);
     const data = await response.json();
     return data;
 }
