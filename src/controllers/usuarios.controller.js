@@ -3,8 +3,8 @@ import { getConnection } from '../database/database'
 
 const getUsuarios = async (req, res) => {
     try {
-        console.log("Hola desde usuarios")
         const connection = await getConnection();
+        console.log("Hola desde")
         const result = await connection.query("SELECT * FROM usuarios");
         res.json(result)
     } catch {
