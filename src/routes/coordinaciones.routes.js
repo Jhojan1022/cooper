@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { methods as coordinacionesController } from "../controllers/coordinaciones.controller";
+import { methods as coordinacionesController } from "../controllers/coordinaciones.controller.js";
 
 const router = Router();
 

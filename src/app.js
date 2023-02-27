@@ -2,12 +2,12 @@ import express from 'express'
 import morgan from 'morgan'
 
 // Routes
-import usuariosRoutes from './routes/usuarios.routes';
-import actividadesRoutes from './routes/actividades.routes';
-import horarios from './routes/horarios.routes';
-import roles from './routes/roles.routes';
-import coordinaciones from './routes/coordinaciones.routes';
-import cargos from './routes/cargos.routes';
+import usuariosRoutes from './routes/usuarios.routes.js';
+import actividadesRoutes from './routes/actividades.routes.js';
+import horarios from './routes/horarios.routes.js';
+import roles from './routes/roles.routes.js';
+import coordinaciones from './routes/coordinaciones.routes.js';
+import cargos from './routes/cargos.routes.js';
 
 
 
