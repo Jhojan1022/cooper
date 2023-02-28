@@ -152,7 +152,7 @@ function updateTime(d, e) {
 
     // Actualiza el texto en el elemento con el id "timer"
     document.getElementById(e).innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
-    console.log(days + "d " + hours + "h " + minutes + "m " + seconds + "s")
+    //console.log(days + "d " + hours + "h " + minutes + "m " + seconds + "s")
     // Espera un segundo y llama de nuevo a la función
     //setTimeout(updateTime(d), 1000);
 }
@@ -171,7 +171,7 @@ async function getActividadesUsuario() {
         if (sessionStorage.getItem("id") == data[index].usuarios_id_usuario) {
             const dateFormat = new Date(data[index].fecha_inicio);
 
-            const html = '<tr><td>' + data[index].nombre_actividad + '</td><td>' + dateFormat.getFullYear()+"-"+dateFormat.getMonth()+"-" +dateFormat.getDate()+" " + dateFormat.getHours()+":"+dateFormat.getMinutes()+":" + dateFormat.getSeconds()+ '</td><td id="act' + index + '">' + data[index].fecha_inicio + '</td><td><button>Finalizar</button></td></tr>'
+            const html = '<tr><td>' + data[index].nombre_actividad + '</td><td>' + dateFormat.getFullYear()+"-"+dateFormat.getMonth()+"-" +dateFormat.getDate()+" " + dateFormat.getHours()+":"+dateFormat.getMinutes()+":" + dateFormat.getSeconds()+ '</td><td id="act' + index + '">' + data[index].fecha_inicio + '</td><td><button onclick="finalizarActividad(`'+data[index].fecha_inicio+'`)">Finalizar</button></td></tr>'
             divActividades.innerHTML += html;
             setInterval(() => {
                 updateTime(data[index].fecha_inicio, "act" + index)
@@ -181,6 +181,27 @@ async function getActividadesUsuario() {
     }
 
     console.log(data)
+}
+
+function finalizarActividad (date) {
+    console.log("finalizar actividad " + date)
+    //finalizarActividad
+    try {
+        fetch(url + "finalizarActividad", {
+            method: 'PUT',
+            body: JSON.stringify({
+                "id_usuario": sessionStorage.getItem("id"),
+                "id_actividad": Number(document.getElementById("actividades").value),
+                "inicio": timestamp.getFullYear() + "-" + (timestamp.getMonth() + 1) + "-" + timestamp.getDate() + " " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds(),
+                "descripcion": ""
+            }),
+            headers: { "Content-Type": "application/json" }
+        })
+        alert("Registro actividad exitoso")
+        getActividadesUsuario()
+    } catch (error) {
+        alert("Ocurrió un error")
+    }
 }
 
 getActividadesUsuario()

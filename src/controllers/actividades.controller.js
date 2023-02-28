@@ -15,7 +15,7 @@ const getActividades = async (req, res) => {
 const getActividadesUsuario = async (req, res) => {
     try {
         const connection = await getConnection();
-        const result = await connection.query("select usuarios_id_usuario, nombre_actividad, fecha_inicio, descripcion_actividad from  usuarios_actividades us inner join actividades a on us.actividades_id_actividad = a.id_actividad where fecha_fin is null");
+        const result = await connection.query("select id_actividad, usuarios_id_usuario, nombre_actividad, fecha_inicio, descripcion_actividad from  usuarios_actividades us inner join actividades a on us.actividades_id_actividad = a.id_actividad where fecha_fin is null");
         res.json(result)
     } catch {
         res.status(500)

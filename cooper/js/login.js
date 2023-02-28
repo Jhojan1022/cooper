@@ -9,7 +9,7 @@ async function validarUsuario(t) {
             localStorage.setItem("nombre", userData[index].nombre)
             sessionStorage.setItem("id", userData[index].id_usuario);
             sessionStorage.setItem("nombre", userData[index].nombre)
-            location.href = location.origin + "/cooper/index.html";
+            location.href = location.origin + "/index.html";
         }
     }
     alert("Inicio de sesión invalido")
