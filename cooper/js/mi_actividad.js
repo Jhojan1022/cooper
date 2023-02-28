@@ -171,7 +171,7 @@ async function getActividadesUsuario() {
         if (sessionStorage.getItem("id") == data[index].usuarios_id_usuario) {
             const dateFormat = new Date(data[index].fecha_inicio);
 
-            const html = '<tr><td>' + data[index].nombre_actividad + '</td><td>' + dateFormat.getFullYear()+"-"+dateFormat.getMonth()+"-" +dateFormat.getDate()+" " + dateFormat.getHours()+":"+dateFormat.getMinutes()+":" + dateFormat.getSeconds()+ '</td><td id="act' + index + '">' + data[index].fecha_inicio + '</td><td><button onclick="finalizarActividad(`'+data[index].fecha_inicio+'`)">Finalizar</button></td></tr>'
+            const html = '<tr><td>' + data[index].nombre_actividad + '</td><td>' + dateFormat.getFullYear()+"-"+dateFormat.getMonth()+"-" +dateFormat.getDate()+" " + dateFormat.getHours()+":"+dateFormat.getMinutes()+":" + dateFormat.getSeconds()+ '</td><td id="act' + index + '">' + data[index].fecha_inicio + '</td><td><button onclick="finalizarActividad('+data[index].id_actividad+', `'+data[index].fecha_inicio+'`)">Finalizar</button></td></tr>'
             divActividades.innerHTML += html;
             setInterval(() => {
                 updateTime(data[index].fecha_inicio, "act" + index)
@@ -183,17 +183,21 @@ async function getActividadesUsuario() {
     console.log(data)
 }
 
-function finalizarActividad (date) {
+function finalizarActividad (id, date) {
+    console.log("finalizar actividad " + id)
     console.log("finalizar actividad " + date)
+
+    const timestamp = new Date();
+
     //finalizarActividad
     try {
         fetch(url + "finalizarActividad", {
             method: 'PUT',
             body: JSON.stringify({
                 "id_usuario": sessionStorage.getItem("id"),
-                "id_actividad": Number(document.getElementById("actividades").value),
-                "inicio": timestamp.getFullYear() + "-" + (timestamp.getMonth() + 1) + "-" + timestamp.getDate() + " " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds(),
-                "descripcion": ""
+                "id_actividad": Number(id),
+                "inicio": date,
+                "fin": timestamp.getFullYear() + "-" + (timestamp.getMonth() + 1) + "-" + timestamp.getDate() + " " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds(),
             }),
             headers: { "Content-Type": "application/json" }
         })
