@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cooper</title>
+
     <link rel="stylesheet" href="css/main.css">
 </head>
 
@@ -13,8 +14,8 @@
 
     <h1>Mi actividad</h1>
 
-    <button onclick="registrarIngreso()">Registrar ingreso</button>
-    <button onclick="registrarSalida()">Registrar salida</button>
+    <button onclick="registrarIngreso()" id="ringreso">Registrar ingreso</button>
+    <button onclick="registrarSalida()" id="rsalida">Registrar salida</button>
     <div>
         <br>
 
@@ -58,6 +59,7 @@
                         <th>Nombre actividad</th>
                         <th>Fecha inicio</th>
                         <th>Duración</th>
+                        <th>Cantidad</th>
                         <th>Acción</th>
                     </tr>
                 </table>
@@ -65,6 +67,13 @@
             <br>
         </div>
     </div>
+    <script>
+        if (sessionStorage.getItem("i") == 0) {
+            document.getElementById("rsalida").disabled = true
+        } else {
+            document.getElementById("ringreso").disabled = true
+        }
+    </script>
     <script src="js/crudAPI.js"></script>
     <script src="js/mi_actividad.js"></script>
 </body>

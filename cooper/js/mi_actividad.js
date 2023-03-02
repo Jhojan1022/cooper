@@ -51,6 +51,9 @@ function registrarIngreso() {
             }),
             headers: { "Content-Type": "application/json" }
         })
+        sessionStorage.setItem("i", 1)
+        document.getElementById("ringreso").disabled = true
+        document.getElementById("rsalida").disabled = false
         alert("Registro de ingreso exitoso")
     } catch (error) {
         alert("Ocurrió un error")
@@ -77,6 +80,10 @@ async function registrarSalida() {
                     }),
                     headers: { "Content-Type": "application/json" }
                 })
+        sessionStorage.setItem("i", 0)
+
+        document.getElementById("ringreso").disabled = false
+                document.getElementById("rsalida").disabled = true
                 alert("Registro de salida exitoso")
             } catch (error) {
                 alert("Ocurrió un error")
@@ -122,53 +129,48 @@ async function actividadesForm() {
 
 async function IniciarActividad() {
 
-    const responsea = await fetch(url + "getActividadesUsuario");
-    const dataa = await responsea.json();
-    if (dataa.length < 1) {
-        alert("Para iniciar una actividad primero debe registrar su ingreso laboral")
-    }else {
 
-        const response = await fetch(url + "getActividadesUsuario");
-        const data = await response.json();
-        let actividades = []
-        let exist = false;
+    const response = await fetch(url + "getActividadesUsuario");
+    const data = await response.json();
+    let actividades = []
+    let exist = false;
 
-        console.log(data)
+    console.log(data)
 
-        for (let index = 0; index < data.length; index++) {
-            if (document.getElementById("actividades").value == data[index].id_actividad) {
-                exist = true
-            }
-        }
-
-
-        if (exist == false) {
-            //id_usuario, id_actividad, inicio, descripcion
-            const timestamp = new Date()
-            //console.log(sessionStorage.getItem("id"))
-            //console.log(document.getElementById("actividades").value)
-            //console.log(timestamp.getFullYear() + "-" + (timestamp.getMonth() + 1) + "-" + timestamp.getDate() + " " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds())
-
-            try {
-                fetch(url + "iniciarActividad", {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        "id_usuario": sessionStorage.getItem("id"),
-                        "id_actividad": Number(document.getElementById("actividades").value),
-                        "inicio": timestamp.getFullYear() + "-" + (timestamp.getMonth() + 1) + "-" + timestamp.getDate() + " " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds(),
-                        "descripcion": document.getElementById("observaciones").value
-                    }),
-                    headers: { "Content-Type": "application/json" }
-                })
-                alert("Registro actividad exitoso")
-                getActividadesUsuario()
-            } catch (error) {
-                alert("Ocurrió un error")
-            }
-        } else {
-            alert("La actividad en curso ya existe")
+    for (let index = 0; index < data.length; index++) {
+        if (document.getElementById("actividades").value == data[index].id_actividad) {
+            exist = true
         }
     }
+
+
+    if (exist == false) {
+        //id_usuario, id_actividad, inicio, descripcion
+        const timestamp = new Date()
+        //console.log(sessionStorage.getItem("id"))
+        //console.log(document.getElementById("actividades").value)
+        //console.log(timestamp.getFullYear() + "-" + (timestamp.getMonth() + 1) + "-" + timestamp.getDate() + " " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds())
+
+        try {
+            fetch(url + "iniciarActividad", {
+                method: 'POST',
+                body: JSON.stringify({
+                    "id_usuario": sessionStorage.getItem("id"),
+                    "id_actividad": Number(document.getElementById("actividades").value),
+                    "inicio": timestamp.getFullYear() + "-" + (timestamp.getMonth() + 1) + "-" + timestamp.getDate() + " " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds(),
+                    "descripcion": document.getElementById("observaciones").value
+                }),
+                headers: { "Content-Type": "application/json" }
+            })
+            alert("Registro actividad exitoso")
+            location.reload()
+        } catch (error) {
+            alert("Ocurrió un error")
+        }
+    } else {
+        alert("La actividad en curso ya existe")
+    }
+
 }
 
 function updateTime(d, e) {
@@ -213,7 +215,7 @@ async function getActividadesUsuario() {
     const response = await fetch(url + "getActividadesUsuario");
     const data = await response.json();
     const divActividades = document.getElementById("actividadesUsuarioTable");
-    divActividades.innerHTML = "<tr><th>Nombre actividad</th><th>Fecha inicio</th><th>Duración</th><th>Acción</th></tr>";
+    divActividades.innerHTML = "<tr><th>Nombre actividad</th><th>Fecha inicio</th><th>Duración</th><th>Cantidad</th><th>Acción</th></tr>";
     let actividades = []
     console.log(data);
 
@@ -228,7 +230,7 @@ async function getActividadesUsuario() {
         if (sessionStorage.getItem("id") == data[index].usuarios_id_usuario) {
             const dateFormat = new Date(data[index].fecha_inicio)
 
-            const html = '<tr><td>' + data[index].nombre_actividad + '</td><td>' + fDate(data[index].fecha_inicio) + '</td><td id="act' + index + '"><td><button onclick="finalizarActividad(' + data[index].id_actividad + ')">Finalizar</button></td></tr>'
+            const html = '<tr><td>' + data[index].nombre_actividad + '</td><td>' + fDate(data[index].fecha_inicio) + '</td><td id="act' + index + '"><td><input type="number" style="width: 50px; height: 30px; margin: auto; padding: 0px; text-align: center"></td><td><button onclick="finalizarActividad(' + data[index].id_actividad + ')">Finalizar</button></td></tr>'
             divActividades.innerHTML += html;
             const tmp = dateFormat.toLocaleDateString()
             setInterval(() => {

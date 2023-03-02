@@ -3,8 +3,8 @@ import { methods as usuariosController } from "../controllers/usuarios.controlle
 
 const router = Router();
 
-
 router.get("/getUsuarios", usuariosController.getUsuarios);
+router.get("/getUsuario", usuariosController.getUsuario);
 router.get("/getIdUsuarios", usuariosController.getIdUsuarios);
 router.post("/addUsuarios", usuariosController.addUsuario);
 router.put("/updateUsuarios", usuariosController.updateUsuario);

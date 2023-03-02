@@ -1,36 +1,19 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Gráfico de barras con Google Charts</title>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart);
+<html lang="en">
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Horas trabajadas', 'Min'],
-          ['Lunes', 60],
-          ['Martes', 70],
-          ['Miercoles', 60],
-          ['Jueves', 80],
-          ['Viernes', 60],
-        ]);
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="css/main.css">
+  <title>Cooper - mi actividad</title>
+</head>
 
-        var options = {
-          chart: {
-            title: 'Productividad en actividades por semana',
-          },
-          bars: 'vertical'
-        };
+<body>
+  <canvas id="mirendimiento_mes"></canvas>
+  <script src="js/init.js"></script>
+  <script src="js/mirendimiento.js"></script>
+</body>
 
-        var chart = new google.charts.Bar(document.getElementById('chart_div'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-      }
-    </script>
-  </head>
-  <body>
-    <div id="chart_div" style="height: 40vh;"></div>
-  </body>
 </html>

@@ -1,0 +1,1 @@
+graficar("mirendimiento_mes", "Rendimiento por mes en horas", ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre"], [7000, 5000, 9000, 7000, 5000, 9000, 7000, 5000, 9000, 7000, 5000, 9000]);
