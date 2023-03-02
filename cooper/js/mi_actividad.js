@@ -7,20 +7,16 @@ actividadesForm()
 
 
 function fDate(d) {
-   //2023-02-28T09:05:39.000Z
+    //2023-02-28T09:05:39.000Z
 
-   d = d.replace("T", " ")
-   d = d.replace("Z", "")
-   d = d.replace(".", ":")
+    d = d.replace("T", " ")
+    d = d.replace("Z", "")
+    d = d.replace(".", ":")
 
-   const tmpDate = new Date(d)
-   const tmpTime  = new Date(d.replace(/-/g, '\/').replace(/T.+/, ''))
-   const fymd = tmpDate.toLocaleDateString("en-US").split("/")
-
-   console.log(d)
-console.log(tmpTime.toLocaleTimeString("it-IT"))
-   console.log(fymd[2] + "-" + fymd[0] + "-" + fymd[1] + " " + tmpDate.toLocaleTimeString("it-IT"))
-   return (fymd[2] + "-" + fymd[0] + "-" + fymd[1] + " " + tmpTime.toLocaleTimeString("it-IT"))
+    const tmpDate = new Date(d)
+    const tmpTime = new Date(d.replace(/-/g, '\/').replace(/T.+/, ''))
+    const fymd = tmpDate.toLocaleDateString("en-US").split("/")
+    return (fymd[2] + "-" + fymd[0] + "-" + fymd[1] + " " + tmpTime.toLocaleTimeString("it-IT"))
 }
 
 
@@ -117,28 +113,44 @@ async function actividadesForm() {
     }
 }
 
-function IniciarActividad() {
-    //id_usuario, id_actividad, inicio, descripcion
-    const timestamp = new Date()
-    //console.log(sessionStorage.getItem("id"))
-    //console.log(document.getElementById("actividades").value)
-    //console.log(timestamp.getFullYear() + "-" + (timestamp.getMonth() + 1) + "-" + timestamp.getDate() + " " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds())
+async function IniciarActividad() {
 
-    try {
-        fetch(url + "iniciarActividad", {
-            method: 'POST',
-            body: JSON.stringify({
-                "id_usuario": sessionStorage.getItem("id"),
-                "id_actividad": Number(document.getElementById("actividades").value),
-                "inicio": timestamp.getFullYear() + "-" + (timestamp.getMonth() + 1) + "-" + timestamp.getDate() + " " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds(),
-                "descripcion": ""
-            }),
-            headers: { "Content-Type": "application/json" }
+    const response = await fetch(url + "getActividadesUsuario");
+    const data = await response.json();
+
+    let exist = false;
+
+    for (let index = 0; index < data.length; index++) {
+        data.find(object => {
+            exist = true;
         })
-        alert("Registro actividad exitoso")
-        getActividadesUsuario()
-    } catch (error) {
-        alert("Ocurrió un error")
+    }
+
+    if (exist == false) {
+        //id_usuario, id_actividad, inicio, descripcion
+        const timestamp = new Date()
+        //console.log(sessionStorage.getItem("id"))
+        //console.log(document.getElementById("actividades").value)
+        //console.log(timestamp.getFullYear() + "-" + (timestamp.getMonth() + 1) + "-" + timestamp.getDate() + " " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds())
+
+        try {
+            fetch(url + "iniciarActividad", {
+                method: 'POST',
+                body: JSON.stringify({
+                    "id_usuario": sessionStorage.getItem("id"),
+                    "id_actividad": Number(document.getElementById("actividades").value),
+                    "inicio": timestamp.getFullYear() + "-" + (timestamp.getMonth() + 1) + "-" + timestamp.getDate() + " " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds(),
+                    "descripcion": document.getElementById("observaciones").value
+                }),
+                headers: { "Content-Type": "application/json" }
+            })
+            alert("Registro actividad exitoso")
+            getActividadesUsuario()
+        } catch (error) {
+            alert("Ocurrió un error")
+        }
+    }else{
+        alert("La actividad en curso ya existe")
     }
 }
 
@@ -185,16 +197,21 @@ async function getActividadesUsuario() {
     const data = await response.json();
     const divActividades = document.getElementById("actividadesUsuarioTable");
     divActividades.innerHTML = "<tr><th>Nombre actividad</th><th>Fecha inicio</th><th>Duración</th><th>Acción</th></tr>";
+    let actividades = []
     console.log(data);
 
     for (let index = 0; index < data.length; index++) {
-        
-        const formatDate = new Date();
+
+        actividades.push(data[index].id)
+
+        data.find(object => {
+            console.log(object);
+        });
 
         if (sessionStorage.getItem("id") == data[index].usuarios_id_usuario) {
             const dateFormat = new Date(data[index].fecha_inicio)
 
-            const html = '<tr><td>' + data[index].nombre_actividad + '</td><td>' +fDate(data[index].fecha_inicio)+ '</td><td id="act'+index+'"><td><button onclick="finalizarActividad('+data[index].id_actividad+', `'+data[index].fecha_inicio+'`)">Finalizar</button></td></tr>'
+            const html = '<tr><td>' + data[index].nombre_actividad + '</td><td>' + fDate(data[index].fecha_inicio) + '</td><td id="act' + index + '"><td><button onclick="finalizarActividad(' + data[index].id_actividad + ', `' + data[index].fecha_inicio + '`)">Finalizar</button></td></tr>'
             divActividades.innerHTML += html;
             const tmp = dateFormat.toLocaleDateString()
             setInterval(() => {
@@ -204,17 +221,19 @@ async function getActividadesUsuario() {
 
     }
 
-    console.log(data)
+    //console.log(actividades)
 }
 
-function finalizarActividad (id, date) {
+function finalizarActividad(id, date) {
+
+    // Parametros a enviar: id_usuario, id_actividad, fin
     console.log("finalizar actividad " + id)
     console.log("finalizar actividad " + date)
 
     const timestamp = new Date();
 
     const formatDate = new Date(date);
-    console.log(formatDate.getFullYear() + "-"+formatDate.getMonth()+"-"+formatDate.getDate()+" " + formatDate.getMinutes()+":"+formatDate.getSeconds()+":"+formatDate.getMilliseconds());
+    console.log(formatDate.getFullYear() + "-" + formatDate.getMonth() + "-" + formatDate.getDate() + " " + formatDate.getMinutes() + ":" + formatDate.getSeconds() + ":" + formatDate.getMilliseconds());
     //finalizarActividad
     try {
         fetch(url + "finalizarActividad", {
@@ -222,7 +241,7 @@ function finalizarActividad (id, date) {
             body: JSON.stringify({
                 "id_usuario": sessionStorage.getItem("id"),
                 "id_actividad": Number(id),
-                "inicio": formatDate.getFullYear() + "-"+formatDate.getMonth()+"-"+formatDate.getDate()+" " + formatDate.getMinutes()+":"+formatDate.getSeconds()+":"+formatDate.getMilliseconds(),
+                "inicio": formatDate.getFullYear() + "-" + formatDate.getMonth() + "-" + formatDate.getDate() + " " + formatDate.getMinutes() + ":" + formatDate.getSeconds() + ":" + formatDate.getMilliseconds(),
                 "fin": timestamp.getFullYear() + "-" + (timestamp.getMonth() + 1) + "-" + timestamp.getDate() + " " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds(),
             }),
             headers: { "Content-Type": "application/json" }
