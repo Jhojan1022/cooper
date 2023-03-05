@@ -70,8 +70,10 @@
     <script>
         if (sessionStorage.getItem("i") == 0) {
             document.getElementById("rsalida").disabled = true
+            document.getElementById("ringreso").disabled = false
         } else {
             document.getElementById("ringreso").disabled = true
+            document.getElementById("rsalida").disabled = false
         }
     </script>
     <script src="js/crudAPI.js"></script>

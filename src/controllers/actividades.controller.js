@@ -124,9 +124,9 @@ async function IniciarActividad(req, res) {
 async function finalizarActividad(req, res) {
 
     try {
-        const {id_usuario, id_actividad, fin} = req.body;
+        const {id_usuario, id_actividad, fin, cantidad} = req.body;
         const connection = await getConnection();
-        const result = await connection.query('update usuarios_actividades set fecha_fin = "'+fin+'" where usuarios_id_usuario = "'+id_usuario+'" and actividades_id_actividad = '+id_actividad+' and fecha_fin is null');
+        const result = await connection.query('update usuarios_actividades set fecha_fin = "'+fin+'", cantidad='+cantidad+' where usuarios_id_usuario = "'+id_usuario+'" and actividades_id_actividad = '+id_actividad+' and fecha_fin is null');
         res.send("Actividad finalizada")
     } catch {
         res.status(500);

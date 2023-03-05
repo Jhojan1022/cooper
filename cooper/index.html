@@ -43,7 +43,7 @@
         </div>
     </div>
     <div id="content">
-        <iframe name="view" src="mi_actividad.html" frameborder="0" width="98%" height="150%s" scrolling="no"></iframe>
+        <iframe name="view" src="mi_actividad.html" frameborder="0" width="98%" height="2000px" scrolling="no"></iframe>
     </div>
     <script>
         function cerrar_sesion() {
@@ -54,7 +54,7 @@
             location.reload()
         }
 
-        document.getElementById("user").innerHTML = sessionStorage.getItem("nombre")
+        document.getElementById("user").innerHTML = localStorage.getItem("nombre")
     </script>
     <script src="js/crudAPI.js"></script>
 </body>

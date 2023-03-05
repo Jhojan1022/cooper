@@ -1,3 +1,5 @@
+const url = "https://cooper-production.up.railway.app/";
+
 function graficar(ctxid, labelp, labelsp, datap) {
     let ctx = document.getElementById(ctxid).getContext('2d');
     var obj = new Chart(ctx, {
