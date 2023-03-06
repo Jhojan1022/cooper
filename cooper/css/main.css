@@ -12,6 +12,16 @@ body::-webkit-scrollbar-thumb{
   background: #333;
   border-radius: 50px;
 }
+
+#if {
+  overflow-y: hidden;  
+}
+
+a{
+  color: black;
+  text-decoration: none;
+}
+
   #sidebar {
     position: fixed;
     left: 0;
@@ -131,7 +141,8 @@ button:hover{
   justify-content: space-around;
 }
 
-.menu_adm div {
+
+.menu_adm a {
   background-color: rgba(0,0,0,0.75);
   color: white;
   padding: 5%;
@@ -140,9 +151,30 @@ button:hover{
   cursor: pointer;
 }
 
+
 .menu_adm div:hover{
   padding: 5.2%;
 }
+
+/**/
+.menu_cant {
+  display: flex;
+  justify-content: space-around;
+}
+
+.menu_cant div {
+  background-color: rgb(252, 250, 250);
+  padding: 5%;
+  margin: 10px;
+  border-radius: 15px;
+}
+
+.sectadm{
+  height: 90vh;
+  margin-bottom: 5px;
+}
+
+
 
 
 table{
@@ -155,4 +187,21 @@ td, th{
   padding: 10px;
   border: solid black 1px;
 
+}
+
+.formgrid{
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+summary{
+  size: 15px;
+  font-weight: bolder;
+}
+
+.modal {
+  width: 70%;
+  border-radius: 5px;
+  position: relative;
+  box-shadow: 10px 10px 0px 1000px rgba(0,0,0,0.75);
 }

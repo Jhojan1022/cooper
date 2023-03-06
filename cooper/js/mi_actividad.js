@@ -230,7 +230,7 @@ async function getActividadesUsuario() {
         if (sessionStorage.getItem("id") == data[index].usuarios_id_usuario) {
             const dateFormat = new Date(data[index].fecha_inicio)
 
-            const html = '<tr><td>' + data[index].nombre_actividad + '</td><td>' + fDate(data[index].fecha_inicio) + '</td><td id="act' + index + '"><td><input type="number" style="width: 50px; height: 30px; margin: auto; padding: 0px; text-align: center"></td><td><button onclick="finalizarActividad(' + data[index].id_actividad + ')">Finalizar</button></td></tr>'
+            const html = '<tr><td>' + data[index].nombre_actividad + '</td><td>' + fDate(data[index].fecha_inicio) + '</td><td id="act' + index + '"><td><input type="number" id="cant'+index+'" style="width: 50px; height: 30px; margin: auto; padding: 0px; text-align: center"></td><td><button onclick="finalizarActividad(' + data[index].id_actividad +', `cant'+index+'`)">Finalizar</button></td></tr>'
             divActividades.innerHTML += html;
             const tmp = dateFormat.toLocaleDateString()
             setInterval(() => {
@@ -243,7 +243,7 @@ async function getActividadesUsuario() {
     //console.log(actividades)
 }
 
-function finalizarActividad(id) {
+function finalizarActividad(id, cantidad) {
 
     // Parametros a enviar: id_usuario, id_actividad, fin
     const timestamp = new Date();
@@ -259,7 +259,8 @@ function finalizarActividad(id) {
                 body: JSON.stringify({
                     "id_usuario": sessionStorage.getItem("id"),
                     "id_actividad": Number(id),
-                    "fin": timestamp.getFullYear() + "/" + timestamp.getMonth() + "/" + timestamp.getDate() + " " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds()
+                    "fin": timestamp.getFullYear() + "/" + timestamp.getMonth() + "/" + timestamp.getDate() + " " + timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds(),
+                    "cantidad": Number(document.getElementById(cantidad).value)
                 }),
                 headers: { "Content-Type": "application/json" }
             })

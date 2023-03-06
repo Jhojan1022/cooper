@@ -9,7 +9,7 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script>
-        
+
         if (localStorage.getItem("id") != null || sessionStorage.getItem("id") != null) {
             sessionStorage.setItem("id", localStorage.getItem("id"))
             sessionStorage.setItem("nombre", localStorage.getItem("nombre"))
@@ -43,7 +43,7 @@
         </div>
     </div>
     <div id="content">
-        <iframe name="view" src="mi_actividad.html" frameborder="0" width="98%" height="2000px" scrolling="no"></iframe>
+        <iframe id="if" name="view" src="mi_actividad.html" frameborder="0" width="98%" height="1000px"></iframe>
     </div>
     <script>
         function cerrar_sesion() {
@@ -55,7 +55,9 @@
         }
 
         document.getElementById("user").innerHTML = localStorage.getItem("nombre")
+
     </script>
+    <script src="js/init.js"></script>
     <script src="js/crudAPI.js"></script>
 </body>
 
